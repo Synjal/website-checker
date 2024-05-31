@@ -7,7 +7,7 @@ export const DarkTheme = {
     onTertiary: '#000000',
     background: "rgb(47,47,47)",
     onBackground: "rgb(231, 225, 229)",
-    surface: "rgb(74, 69, 78)",
+    surface: "rgb(184,163,196)",
     onSurface: "rgb(47,47,47)",
     error: '#a83333',
     onError: '#000000',
