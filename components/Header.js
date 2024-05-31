@@ -1,10 +1,24 @@
 import {View, Text, StyleSheet} from "react-native";
+import {Switch} from "react-native-paper";
+import {useContext, useState} from "react";
+import {LightTheme} from "../constants/LightTheme";
+import {DarkTheme} from "../constants/DarkTheme";
+import {ThemeContext} from "../context/ThemeContext";
 
 const Header = () => {
+    const [isSwitchOn, setIsSwitchOn] = useState(false)
+    const { theme, updateTheme } = useContext(ThemeContext)
+
+    const onToggleSwitch = () => {
+        setIsSwitchOn(!isSwitchOn)
+        updateTheme(!isSwitchOn? DarkTheme : LightTheme)
+    }
+
     return (
         <View>
-            <View style={styles.HeaderContainer}>
-                <Text style={styles.HeaderText}>Website Checker</Text>
+            <View style={styles.HeaderContainer(theme)}>
+                <Text style={styles.HeaderText(theme)}>Website Checker</Text>
+                <Switch value={isSwitchOn} onValueChange={onToggleSwitch} color={theme.secondary} style={{marginRight: 20}}/>
             </View>
         </View>
     )
@@ -13,17 +27,19 @@ const Header = () => {
 export default Header;
 
 const styles = StyleSheet.create({
-    HeaderContainer: {
+    HeaderContainer: theme => ({
         height: 70,
-        backgroundColor: '#cb8347',
+        backgroundColor: theme.primary,
         alignItems: 'center',
-        justifyContent: 'center',
-    },
-    HeaderText: {
-        color: '#ffffff',
+        justifyContent:'flex-end',
+        flexDirection: 'row',
+    }),
+    HeaderText: theme => ({
+        color: theme.onPrimary,
         fontSize: 20,
         letterSpacing: 0.33,
         fontWeight: '500',
         textTransform: 'uppercase',
-    }
+        marginRight: '10%',
+    }),
 })
