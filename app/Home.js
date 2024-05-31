@@ -1,11 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import { StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import WebsiteList from "../components/WebsiteList";
 import {websites} from "../constants/Websites";
+import {ThemeContext} from "../context/ThemeContext";
 
 const Home = () => {
+    const { theme } = useContext(ThemeContext)
     const [websitesData, setWebsitesData] = useState(websites);
 
     useEffect(() => {
@@ -21,18 +24,19 @@ const Home = () => {
     }, [websitesData]);
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container(theme)}>
             <Header />
             <WebsiteList data={websitesData} />
             <Footer />
-        </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+    container: theme => ({
         flex: 1,
-    },
+        backgroundColor: theme.background,
+    }),
 });
 
 export default Home;
