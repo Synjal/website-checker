@@ -8,12 +8,6 @@ const WebsiteList = ({ data }) => {
 
     const [value, setValue] = useState('list')
 
-    const [isSwitchOn, setIsSwitchOn] = useState(false)
-    const onToggleSwitch = () => {
-        setIsSwitchOn(!isSwitchOn)
-
-    }
-
     return (
         <View style={styles.listContainer(theme)}>
             <SegmentedButtons
