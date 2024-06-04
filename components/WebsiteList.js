@@ -46,6 +46,8 @@ const WebsiteList = ({ data }) => {
                             />
                         </View>
                     )}
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
                 />
             }
 
@@ -65,6 +67,8 @@ const WebsiteList = ({ data }) => {
                         </View>
                     )}
                     columnWrapperStyle={styles.row}
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
                 />
             }
         </View>
@@ -81,6 +85,7 @@ const styles = StyleSheet.create({
     listContainer: theme => ({
         flex: 1,
         margin: 20,
+        marginBottom: 0,
         backgroundColor: theme.background,
     }),
     itemContainer: theme => ({
