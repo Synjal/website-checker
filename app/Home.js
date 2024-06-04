@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { StyleSheet } from 'react-native';
+import {StatusBar, StyleSheet} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -18,13 +18,14 @@ const Home = () => {
                 online: Math.random() < 0.5 ? "on" : "off"
             }));
             setWebsitesData(newWebsites);
-        }, 500);
+        }, 2000);
 
         return () => clearInterval(interval);
     }, [websitesData]);
 
     return (
         <SafeAreaView style={styles.container(theme)}>
+            <StatusBar backgroundColor={theme.primary} />
             <Header />
             <WebsiteList data={websitesData} />
             <Footer />
