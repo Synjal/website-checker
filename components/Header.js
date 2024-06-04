@@ -1,13 +1,14 @@
 import {View, Text, StyleSheet} from "react-native";
 import {Switch} from "react-native-paper";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {LightTheme} from "../constants/LightTheme";
 import {DarkTheme} from "../constants/DarkTheme";
 import {ThemeContext} from "../context/ThemeContext";
 
 const Header = () => {
-    const [isSwitchOn, setIsSwitchOn] = useState(false)
     const { theme, updateTheme } = useContext(ThemeContext)
+
+    const [isSwitchOn, setIsSwitchOn] = useState(theme === DarkTheme)
 
     const onToggleSwitch = () => {
         setIsSwitchOn(!isSwitchOn)
