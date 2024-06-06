@@ -1,37 +1,44 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {StatusBar, StyleSheet} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import WebsiteList from "../components/WebsiteList";
-import {websites} from "../constants/Websites";
 import {ThemeContext} from "../context/ThemeContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Home = () => {
+const Home = ({ navigation }) => {
     const { theme } = useContext(ThemeContext)
-    const [websitesData, setWebsitesData] = useState(websites);
+
+    const [websitesData, setWebsitesData] = useState([]);
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            const newWebsites = websitesData.map(website => ({
-                ...website,
-                online: Math.random() < 0.5 ? "on" : "off"
-            }));
-            setWebsitesData(newWebsites);
-        }, 2000);
+        const initList = async () => {
+            try {
+                const savedWebsites = await AsyncStorage.getItem("websites");
+                if (savedWebsites !== null) {
+                    setWebsitesData(JSON.parse(savedWebsites));
+                } else {
+                    setWebsitesData([]);
+                }
+            } catch (error) {
+                console.error(error);
+                setWebsitesData([]);
+            }
+        };
 
-        return () => clearInterval(interval);
+        initList();
     }, [websitesData]);
 
     return (
         <SafeAreaView style={styles.container(theme)}>
             <StatusBar backgroundColor={theme.primary} />
-            <Header />
-            <WebsiteList data={websitesData} />
+            <Header navigation={navigation} canGoBack={false}/>
+            <WebsiteList navigation={navigation} data={websitesData} />
             <Footer />
         </SafeAreaView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: theme => ({
