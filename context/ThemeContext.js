@@ -9,7 +9,10 @@ export const ThemeProvider = ({ children }) => {
 
     useEffect(() => {
         const initTheme = async () => {
-            setTheme(JSON.parse(await AsyncStorage.getItem("theme")))
+            const storedTheme = await AsyncStorage.getItem("theme");
+            if (storedTheme) {
+                setTheme(JSON.parse(storedTheme));
+            }
         }
 
         initTheme()
