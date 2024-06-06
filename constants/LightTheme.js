@@ -11,6 +11,7 @@ export const LightTheme = {
     onSurface: '#000000',
     error: '#8f1d1d',
     onError: '#fcfcfc',
-    on: "#2c8f1d",
+    on: "#4cb23c",
+    slow: "#e8c947",
     off: "#8f1d1d"
 }
