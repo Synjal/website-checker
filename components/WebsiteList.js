@@ -41,7 +41,7 @@ const WebsiteItem = ({ item, theme, pingTimes, deleteWebsite, navigation, isGrid
     </TouchableRipple>
 );
 
-const WebsiteList = ({ navigation, data }) => {
+const WebsiteList = ({ navigation, data, refresh }) => {
     const { theme } = useContext(ThemeContext);
     const { pingTimes, setPingTimes } = useContext(PingContext)
 
@@ -61,6 +61,7 @@ const WebsiteList = ({ navigation, data }) => {
     }
 
     useEffect(() => {
+
         const interval = setInterval(async () => {
             const newPingTimes = {};
             for (const item of data) {
@@ -70,7 +71,7 @@ const WebsiteList = ({ navigation, data }) => {
         }, 2000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [data]);
 
     const deleteWebsite = async (address) => {
         try {
@@ -83,6 +84,8 @@ const WebsiteList = ({ navigation, data }) => {
                 delete updatedPingTimes[address];
                 return updatedPingTimes;
             });
+
+            refresh()
         } catch (error) {
             console.error("Failed to delete the website:", error);
         }
@@ -101,7 +104,7 @@ const WebsiteList = ({ navigation, data }) => {
 
     return (
         <View style={styles.listContainer(theme)}>
-            <AddWebsites data={data} />
+            <AddWebsites data={data} refresh={refresh} />
             <SegmentedButtons
                 value={value}
                 onValueChange={setValue}

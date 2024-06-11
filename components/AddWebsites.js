@@ -4,7 +4,7 @@ import { Button, IconButton, TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ThemeContext} from "../context/ThemeContext";
 
-const AddWebsites = ({ data }) => {
+const AddWebsites = ({ data, refresh }) => {
     const { theme } = useContext(ThemeContext);
 
     const [name, setName] = useState('');
@@ -18,6 +18,7 @@ const AddWebsites = ({ data }) => {
 
             try {
                 await AsyncStorage.setItem("websites", JSON.stringify(updatedWebsitesList));
+                refresh()
             } catch (error) {
                 console.error(error);
             }
@@ -60,7 +61,7 @@ const AddWebsites = ({ data }) => {
                     <IconButton
                         icon="web-plus"
                         mode="contained"
-                        onPress={() => handleAddWebsite(name, `https://www.${address}`)}
+                        onPress={() => handleAddWebsite(name, `https://www.${address.toLowerCase()}`)}
                         style={styles.button}
                     />
                     <IconButton

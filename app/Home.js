@@ -12,30 +12,31 @@ const Home = ({ navigation }) => {
 
     const [websitesData, setWebsitesData] = useState([]);
 
-    useEffect(() => {
-        const initList = async () => {
-            try {
-                const savedWebsites = await AsyncStorage.getItem("websites");
-                if (savedWebsites !== null) {
-                    setWebsitesData(JSON.parse(savedWebsites));
-                } else {
-                    setWebsitesData([]);
-                }
-            } catch (error) {
-                console.error(error);
+    const initList = async () => {
+        try {
+            const savedWebsites = await AsyncStorage.getItem("websites");
+            if (savedWebsites !== null) {
+                setWebsitesData(JSON.parse(savedWebsites));
+            } else {
                 setWebsitesData([]);
             }
-        };
+            console.log('loop hole ?')
+        } catch (error) {
+            console.error(error);
+            setWebsitesData([]);
+        }
+    };
 
+    useEffect(() => {
         initList();
-    }, [websitesData]);
+    }, []);
 
     return (
         <SafeAreaView style={styles.container(theme)}>
             <StatusBar backgroundColor={theme.primary} />
             <Header navigation={navigation} canGoBack={false}/>
-            <WebsiteList navigation={navigation} data={websitesData} />
-            <Footer />
+            <WebsiteList navigation={navigation} data={websitesData} refresh={initList}/>
+            <Footer refresh={initList}/>
         </SafeAreaView>
     );
 };

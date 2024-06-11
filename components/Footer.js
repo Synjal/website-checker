@@ -4,8 +4,13 @@ import {ThemeContext} from "../context/ThemeContext";
 import {IconButton} from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Footer = () => {
+const Footer = ({ refresh }) => {
     const { theme } = useContext(ThemeContext);
+
+    const handleClearStorage = () => {
+        AsyncStorage.removeItem("websites").then(() => console.log('AsyncStorage cleared'))
+        refresh()
+    }
 
     return (
         <View style={styles.footerWrapper}>
@@ -15,7 +20,7 @@ const Footer = () => {
                     icon="web-refresh"
                     iconColor={theme.onPrimary}
                     size={20}
-                    onPress={() => AsyncStorage.removeItem("websites")}
+                    onPress={() => handleClearStorage()}
                     style={styles.iconButton}
                 />
             </View>
