@@ -1,17 +1,17 @@
 export const LightTheme = {
-    primary: '#9d307c',
-    onPrimary: '#fcfcfc',
-    secondary: '#A86EAF',
-    onSecondary: '#fcfcfc',
-    tertiary: '#363537',
-    onTertiary: '#fcfcfc',
-    background: '#FFF5EBFF',
+    primary: '#6200EE',
+    onPrimary: '#FFFFFF',
+    secondary: '#03DAC6',
+    onSecondary: '#000000',
+    tertiary: '#018786',
+    onTertiary: '#FFFFFF',
+    background: '#FFFFFF',
     onBackground: '#000000',
-    surface: "#c2a9c2",
+    surface: '#F5F5F5',
     onSurface: '#000000',
-    error: '#8f1d1d',
-    onError: '#fcfcfc',
-    on: "#689643",
-    slow: "#a99f39",
-    off: "#a94d39"
-}
+    error: '#b01b36',
+    onError: '#FFFFFF',
+    on: '#388E3C', // Green for good status
+    slow: '#FBC02D', // Amber for slow status
+    off: '#D32F2F' // Red for off status
+};

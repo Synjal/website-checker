@@ -1,17 +1,17 @@
 export const DarkTheme = {
-    primary: '#b78bbd',
-    onPrimary: '#000000',
-    secondary: '#654070',
+    primary: '#BB86FC',
+    onPrimary: '#3700B3',
+    secondary: '#03DAC6',
     onSecondary: '#000000',
-    tertiary: '#7d7a80',
+    tertiary: '#03DAC6',
     onTertiary: '#000000',
-    background: "rgb(47,47,47)",
-    onBackground: "rgb(231, 225, 229)",
-    surface: "rgb(191,176,199)",
-    onSurface: "rgb(47,47,47)",
-    error: '#a83333',
+    background: '#121212',
+    onBackground: '#FFFFFF',
+    surface: '#1E1E1E',
+    onSurface: '#FFFFFF',
+    error: '#CF6679',
     onError: '#000000',
-    on: "#5e8f56",
-    slow: "#e3ab3b",
-    off: "#b24d4d"
-}
+    on: '#00E676', // Green for good status
+    slow: '#FFC400', // Amber for slow status
+    off: '#FF5252' // Red for off status
+};
