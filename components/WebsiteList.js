@@ -83,7 +83,7 @@ const WebsiteList = ({ navigation, data, refresh }) => {
 
     return (
         <View style={styles.listContainer(theme)}>
-            <AddWebsites data={data} refresh={refresh} />
+            <AddWebsites refresh={refresh} />
             <SegmentedButtons
                 value={value}
                 onValueChange={setValue}
