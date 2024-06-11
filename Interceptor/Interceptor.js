@@ -7,22 +7,6 @@ const token = async () => {
     return JSON.parse(jwt)?.token
 }
 
-const refreshToken = async () => {
-    const jwt = await AsyncStorage.getItem('jwtToken');
-    return JSON.parse(jwt)?.refresh_token
-}
-
-const setToken = async (newAccessToken) => {
-    try {
-        const jwt = await AsyncStorage.getItem('jwtToken');
-        const parsedJwt = JSON.parse(jwt);
-        parsedJwt.token = newAccessToken;
-        await AsyncStorage.setItem('jwtToken', JSON.stringify(parsedJwt));
-    } catch (error) {
-        console.error('Error setting token:', error);
-    }
-}
-
 axios.interceptors.request.use(
     async config => {
         config.headers['Content-Type'] = 'application/ld+json';
