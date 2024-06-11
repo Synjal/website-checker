@@ -40,9 +40,9 @@ const Home = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container(theme)}>
             <StatusBar backgroundColor={theme.primary} />
-            <Header navigation={navigation} canGoBack={false}/>
-            <WebsiteList navigation={navigation} data={websitesData} refresh={initList}/>
-            <Footer navigation={navigation} refresh={initList}/>
+            <Header navigation={navigation} canGoBack={false} />
+            <WebsiteList navigation={navigation} data={websitesData} refresh={initList} />
+            <Footer navigation={navigation} />
         </SafeAreaView>
     );
 };
