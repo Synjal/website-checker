@@ -15,7 +15,7 @@ const SplashScreen = ({ navigation }) => {
             AsyncStorage.getItem('jwtToken').then((value) =>
                 navigation.replace(value === null ? 'Auth' : 'Home'),
             );
-        }, 5000);
+        }, 4000);
     }, []);
 
     return (
