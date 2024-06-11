@@ -1,4 +1,4 @@
-import {View, Text, Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, ScrollView, StyleSheet} from "react-native";
+import {View, Text, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, ScrollView, StyleSheet} from "react-native";
 import React, {createRef, useContext, useState} from "react";
 import {ThemeContext} from "../../context/ThemeContext";
 import {validate} from "email-validator";
@@ -7,7 +7,7 @@ import {register} from "../../constants/Server";
 import {HelperText, Icon, TextInput} from "react-native-paper";
 import Loader from "../../components/Loader";
 
-const RegisterScreen = ({ navigation }) => {
+const RegisterScreen = () => {
     const { theme } = useContext(ThemeContext);
 
     const [userEmail, setUserEmail] = useState('');
