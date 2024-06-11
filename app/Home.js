@@ -20,7 +20,6 @@ const Home = ({ navigation }) => {
             } else {
                 setWebsitesData([]);
             }
-            console.log('loop hole ?')
         } catch (error) {
             console.error(error);
             setWebsitesData([]);
@@ -36,7 +35,7 @@ const Home = ({ navigation }) => {
             <StatusBar backgroundColor={theme.primary} />
             <Header navigation={navigation} canGoBack={false}/>
             <WebsiteList navigation={navigation} data={websitesData} refresh={initList}/>
-            <Footer refresh={initList}/>
+            <Footer navigation={navigation} refresh={initList}/>
         </SafeAreaView>
     );
 };
