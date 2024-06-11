@@ -1,5 +1,5 @@
 export const LightTheme = {
-    primary: '#5b009d',
+    primary: '#9d307c',
     onPrimary: '#fcfcfc',
     secondary: '#A86EAF',
     onSecondary: '#fcfcfc',
@@ -11,7 +11,7 @@ export const LightTheme = {
     onSurface: '#000000',
     error: '#8f1d1d',
     onError: '#fcfcfc',
-    on: "#4cb23c",
-    slow: "#e8c947",
-    off: "#8f1d1d"
+    on: "#689643",
+    slow: "#a99f39",
+    off: "#a94d39"
 }

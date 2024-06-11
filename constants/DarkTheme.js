@@ -12,6 +12,6 @@ export const DarkTheme = {
     error: '#a83333',
     onError: '#000000',
     on: "#5e8f56",
-    slow: "#d0a654",
+    slow: "#e3ab3b",
     off: "#b24d4d"
 }
