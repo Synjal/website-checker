@@ -1,15 +1,14 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import {Icon, IconButton, SegmentedButtons, TouchableRipple} from 'react-native-paper';
+import {FlatList, LogBox, StyleSheet, Text, View} from 'react-native';
+import {Icon, SegmentedButtons, TouchableRipple} from 'react-native-paper';
 import {ThemeContext} from '../context/ThemeContext';
 import AddWebsites from './AddWebsites';
 import {PingContext} from "../context/PingContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const WebsiteItem = ({ item, theme, pingTimes, deleteWebsite, navigation, isGrid }) => (
+const WebsiteItem = ({ item, theme, pingTimes, navigation, isGrid, refresh }) => (
     <TouchableRipple
         style={isGrid ? styles.itemContainerGrid(theme, pingTimes[item.address]) : styles.itemContainer(theme)}
-        onPress={() => navigation.navigate("Details", { website: item })}
+        onPress={() => navigation.navigate("Details", { website: item, refresh: refresh })}
         rippleColor={theme.surface}
     >
         <View style={isGrid ? styles.itemContentGrid : styles.itemContent}>
@@ -30,12 +29,6 @@ const WebsiteItem = ({ item, theme, pingTimes, deleteWebsite, navigation, isGrid
                             : pingTimes[item.address] >= 100 ? theme.slow : theme.on}
                     size={40}
                 />
-                <IconButton
-                    icon={"delete-outline"}
-                    iconColor={theme.primary}
-                    size={40}
-                    onPress={() => deleteWebsite(item.address)}
-                />
             </View>
         </View>
     </TouchableRipple>
@@ -46,6 +39,10 @@ const WebsiteList = ({ navigation, data, refresh }) => {
     const { pingTimes, setPingTimes } = useContext(PingContext)
 
     const [value, setValue] = useState('list');
+
+    LogBox.ignoreLogs([
+        'Non-serializable values were found in the navigation state',
+    ])
 
     async function ping(address) {
         try {
@@ -73,32 +70,14 @@ const WebsiteList = ({ navigation, data, refresh }) => {
         return () => clearInterval(interval);
     }, [data]);
 
-    const deleteWebsite = async (address) => {
-        try {
-            const storedWebsites = JSON.parse(await AsyncStorage.getItem("websites"));
-            const updatedWebsites = storedWebsites.filter(item => item.address !== address);
-            await AsyncStorage.setItem("websites", JSON.stringify(updatedWebsites));
-
-            setPingTimes((prevPingTimes) => {
-                const updatedPingTimes = { ...prevPingTimes };
-                delete updatedPingTimes[address];
-                return updatedPingTimes;
-            });
-
-            refresh()
-        } catch (error) {
-            console.error("Failed to delete the website:", error);
-        }
-    };
-
     const renderItem = ({ item }) => (
         <WebsiteItem
             item={item}
             theme={theme}
             pingTimes={pingTimes}
-            deleteWebsite={deleteWebsite}
             navigation={navigation}
             isGrid={value === 'grid'}
+            refresh={refresh}
         />
     );
 
