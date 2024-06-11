@@ -5,7 +5,6 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import WebsiteList from "../components/WebsiteList";
 import {ThemeContext} from "../context/ThemeContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import {websites} from "../constants/Server";
 

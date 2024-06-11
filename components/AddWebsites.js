@@ -1,12 +1,11 @@
 import React, {useContext, useState} from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button, IconButton, TextInput } from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ThemeContext} from "../context/ThemeContext";
 import axios from "axios";
 import {websites} from "../constants/Server";
 
-const AddWebsites = ({ data, refresh }) => {
+const AddWebsites = ({ refresh }) => {
     const { theme } = useContext(ThemeContext);
 
     const [name, setName] = useState('');

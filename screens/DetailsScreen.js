@@ -6,7 +6,6 @@ import Footer from '../components/Footer';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute } from '@react-navigation/native';
 import { PingContext } from "../context/PingContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {websites} from "../constants/Server";
 import axios from "axios";
 
