@@ -8,6 +8,8 @@ import {PingProvider} from "./context/PingContext";
 import LoginScreen from "./screens/Auth/LoginScreen";
 import RegisterScreen from "./screens/Auth/RegisterScreen";
 import SplashScreen from "./screens/SplashScreen";
+import axios from "./Interceptor/Interceptor"
+
 const Stack = createStackNavigator();
 
 const Auth = () => {
