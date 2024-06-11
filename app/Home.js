@@ -6,17 +6,25 @@ import Footer from "../components/Footer";
 import WebsiteList from "../components/WebsiteList";
 import {ThemeContext} from "../context/ThemeContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import {websites} from "../constants/Server";
 
 const Home = ({ navigation }) => {
     const { theme } = useContext(ThemeContext)
 
-    const [websitesData, setWebsitesData] = useState([]);
+    const [ websitesData, setWebsitesData ] = useState([]);
 
     const initList = async () => {
         try {
-            const savedWebsites = await AsyncStorage.getItem("websites");
-            if (savedWebsites !== null) {
-                setWebsitesData(JSON.parse(savedWebsites));
+            const savedWebsites = await axios.get(websites)
+            if (savedWebsites.data && savedWebsites.data['hydra:member']) {
+                const websites = savedWebsites.data['hydra:member'].map(site => ({
+                    id: site.id,
+                    name: site.name,
+                    address: site.url
+                }));
+                setWebsitesData(websites);
+                console.log(websites)
             } else {
                 setWebsitesData([]);
             }

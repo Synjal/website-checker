@@ -7,6 +7,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute } from '@react-navigation/native';
 import { PingContext } from "../context/PingContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {websites} from "../constants/Server";
+import axios from "axios";
 
 const DetailsScreen = ({ navigation }) => {
     const { theme } = useContext(ThemeContext);
@@ -15,20 +17,17 @@ const DetailsScreen = ({ navigation }) => {
     const route = useRoute();
     const { website, refresh } = route.params;
 
-    const deleteWebsite = async (address) => {
+    const deleteWebsite = async (site) => {
         try {
-            const storedWebsites = JSON.parse(await AsyncStorage.getItem("websites"));
-            const updatedWebsites = storedWebsites.filter(item => item.address !== address);
-            await AsyncStorage.setItem("websites", JSON.stringify(updatedWebsites));
-
+            await axios.delete(websites + '/' + site.id)
             setPingTimes((prevPingTimes) => {
                 const updatedPingTimes = { ...prevPingTimes };
-                delete updatedPingTimes[address];
+                delete updatedPingTimes[site.address];
                 return updatedPingTimes;
             });
 
             refresh();
-            navigation.goBack(); // Navigate back to the previous screen after deletion
+            navigation.goBack();
         } catch (error) {
             console.error("Failed to delete the website:", error);
         }
@@ -44,7 +43,7 @@ const DetailsScreen = ({ navigation }) => {
                 <Text style={styles.websitePing(theme)}>{pingTimes[website.address] + " ms"}</Text>
                 <TouchableOpacity
                     style={styles.deleteButton(theme)}
-                    onPress={() => deleteWebsite(website.address)}
+                    onPress={() => deleteWebsite(website)}
                 >
                     <Text style={styles.deleteButtonText(theme)}>Supprimer</Text>
                 </TouchableOpacity>

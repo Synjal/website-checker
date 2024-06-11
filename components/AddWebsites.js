@@ -3,6 +3,8 @@ import { View, StyleSheet } from 'react-native';
 import { Button, IconButton, TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ThemeContext} from "../context/ThemeContext";
+import axios from "axios";
+import {websites} from "../constants/Server";
 
 const AddWebsites = ({ data, refresh }) => {
     const { theme } = useContext(ThemeContext);
@@ -13,11 +15,17 @@ const AddWebsites = ({ data, refresh }) => {
 
     async function handleAddWebsite(name, address) {
         if (name && address) {
-            const newWebsite = { name, address };
-            const updatedWebsitesList = [...data, newWebsite];
-
             try {
-                await AsyncStorage.setItem("websites", JSON.stringify(updatedWebsitesList));
+                await axios.post(websites, {
+                    name: name,
+                    url: address,
+                }, {
+                    headers: {
+                        'Content-Type': 'application/ld+json',
+                        'Accept': 'application/ld+json'
+                    },
+                    withCredentials: false
+                });
                 refresh()
             } catch (error) {
                 console.error(error);
