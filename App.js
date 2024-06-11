@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './app/Home';
@@ -7,7 +7,6 @@ import DetailsScreen from "./screens/DetailsScreen";
 import {PingProvider} from "./context/PingContext";
 import LoginScreen from "./screens/Auth/LoginScreen";
 import RegisterScreen from "./screens/Auth/RegisterScreen";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import SplashScreen from "./screens/SplashScreen";
 const Stack = createStackNavigator();
 
