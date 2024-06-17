@@ -68,7 +68,7 @@ const AddWebsites = ({ refresh }) => {
                     <IconButton
                         icon="web-plus"
                         mode="contained"
-                        onPress={() => handleAddWebsite(name, `https://www.${address.toLowerCase()}`)}
+                        onPress={() => handleAddWebsite(name, `https://${address.toLowerCase()}`)}
                         style={styles.button}
                     />
                     <IconButton

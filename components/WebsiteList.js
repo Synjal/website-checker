@@ -1,9 +1,9 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {FlatList, LogBox, StyleSheet, Text, View} from 'react-native';
-import {Icon, SegmentedButtons, TouchableRipple} from 'react-native-paper';
-import {ThemeContext} from '../context/ThemeContext';
+import React, { useContext, useEffect, useState } from 'react';
+import { FlatList, LogBox, StyleSheet, Text, View } from 'react-native';
+import { Icon, SegmentedButtons, TouchableRipple } from 'react-native-paper';
+import { ThemeContext } from '../context/ThemeContext';
 import AddWebsites from './AddWebsites';
-import {PingContext} from "../context/PingContext";
+import { PingContext } from "../context/PingContext";
 
 const WebsiteItem = ({ item, theme, pingTimes, navigation, isGrid, refresh }) => (
     <TouchableRipple
@@ -15,7 +15,7 @@ const WebsiteItem = ({ item, theme, pingTimes, navigation, isGrid, refresh }) =>
             <View style={styles.textContainer}>
                 <Text style={isGrid ? styles.websiteNameGrid(theme) : styles.websiteName(theme)}>{item.name}</Text>
                 <Text style={isGrid ? styles.websiteAddressGrid(theme) : styles.websiteAddress(theme)}>
-                    {item.address.slice(12)}
+                    {item.address.slice(8)}
                 </Text>
             </View>
             <View style={styles.iconContainer}>
@@ -36,13 +36,13 @@ const WebsiteItem = ({ item, theme, pingTimes, navigation, isGrid, refresh }) =>
 
 const WebsiteList = ({ navigation, data, refresh }) => {
     const { theme } = useContext(ThemeContext);
-    const { pingTimes, setPingTimes } = useContext(PingContext)
+    const { pingTimes, setPingTimes } = useContext(PingContext);
 
     const [value, setValue] = useState('list');
 
     LogBox.ignoreLogs([
         'Non-serializable values were found in the navigation state',
-    ])
+    ]);
 
     async function ping(address) {
         try {
@@ -58,7 +58,6 @@ const WebsiteList = ({ navigation, data, refresh }) => {
     }
 
     useEffect(() => {
-
         const interval = setInterval(async () => {
             const newPingTimes = {};
             for (const item of data) {
@@ -92,19 +91,17 @@ const WebsiteList = ({ navigation, data, refresh }) => {
                         icon: 'view-list-outline',
                         label: 'Liste',
                         value: 'list',
-                        checkedColor: theme.onSurface,
+                        checkedColor: theme.onTertiary,
                         uncheckedColor: theme.onBackground,
                         style: value === 'list' ? styles.selectedButton(theme) : styles.unselectedButton(theme),
-
                     },
                     {
                         icon: 'view-grid-outline',
                         label: 'Grille',
                         value: 'grid',
-                        checkedColor: theme.onSurface,
+                        checkedColor: theme.onTertiary,
                         uncheckedColor: theme.onBackground,
                         style: value === 'grid' ? styles.selectedButton(theme) : styles.unselectedButton(theme),
-
                     },
                 ]}
                 style={{ marginBottom: 20 }}
@@ -178,6 +175,12 @@ const styles = StyleSheet.create({
                     : ping >= 100 ? theme.slow
                         : theme.on,
         borderRadius: 10,
+        padding: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 5,
     }),
     itemContentGrid: {
         justifyContent: 'center',
@@ -189,13 +192,14 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: theme.textColor,
         marginBottom: 5,
+        fontWeight: '600',
     }),
     websiteAddressGrid: theme => ({
         fontSize: 14,
         color: theme.textColor,
     }),
     selectedButton: theme => ({
-        backgroundColor: theme.surface,
+        backgroundColor: theme.tertiary,
     }),
     unselectedButton: theme => ({
         backgroundColor: theme.background,
