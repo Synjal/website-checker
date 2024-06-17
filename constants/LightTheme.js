@@ -7,7 +7,7 @@ export const LightTheme = {
     onTertiary: '#FFFFFF',
     background: '#FFFFFF',
     onBackground: '#000000',
-    surface: '#F5F5F5',
+    surface: '#6200EE',
     onSurface: '#000000',
     error: '#b01b36',
     onError: '#FFFFFF',
