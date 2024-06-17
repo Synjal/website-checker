@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {StatusBar, StyleSheet} from 'react-native';
+import {StatusBar, StyleSheet } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -7,11 +7,13 @@ import WebsiteList from "../components/WebsiteList";
 import {ThemeContext} from "../context/ThemeContext";
 import axios from "axios";
 import {websites} from "../constants/Server";
+import * as Location from 'expo-location';
 
 const Home = ({ navigation }) => {
     const { theme } = useContext(ThemeContext)
 
     const [ websitesData, setWebsitesData ] = useState([]);
+    const [location, setLocation] = useState(null);
 
     const initList = async () => {
         try {
@@ -24,8 +26,10 @@ const Home = ({ navigation }) => {
                 }));
                 setWebsitesData(websites);
                 console.log(websites)
+                console.log(JSON.stringify(location))
             } else {
                 setWebsitesData([]);
+                console.log(savedWebsites.data)
             }
         } catch (error) {
             console.error(error);
@@ -34,7 +38,10 @@ const Home = ({ navigation }) => {
     };
 
     useEffect(() => {
-        initList();
+        (async () => {
+            setLocation(await Location.getCurrentPositionAsync({}));
+        })();
+        initList().then(() => console.log("websites loaded"));
     }, []);
 
     return (
