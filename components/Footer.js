@@ -2,13 +2,13 @@ import {View, Text, StyleSheet} from "react-native";
 import {useContext} from "react";
 import {ThemeContext} from "../context/ThemeContext";
 import {IconButton} from "react-native-paper";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from 'expo-secure-store';
 
 const Footer = ({ navigation }) => {
     const { theme } = useContext(ThemeContext);
 
     const handleDisconnect = () => {
-        AsyncStorage.removeItem("jwtToken").then(() => console.log('Token cleared'))
+        SecureStore.deleteItemAsync("jwtToken").then(() => console.log('Token cleared'))
         navigation.navigate("Auth")
     }
 

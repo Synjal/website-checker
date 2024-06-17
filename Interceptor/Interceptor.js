@@ -1,9 +1,9 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from 'expo-secure-store';
 import axios from "axios";
 import {auth, register} from "../constants/Server";
 
-const token = async () => {
-    const jwt = await AsyncStorage.getItem('jwtToken');
+const token = () => {
+    const jwt = SecureStore.getItem('jwtToken');
     return JSON.parse(jwt)?.token
 }
 

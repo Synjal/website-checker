@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {ThemeContext} from "../context/ThemeContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from 'expo-secure-store';
 import {View, StyleSheet, ActivityIndicator} from "react-native";
 import {Icon} from "react-native-paper";
 
@@ -12,7 +12,7 @@ const SplashScreen = ({ navigation }) => {
     useEffect(() => {
         setTimeout(() => {
             setAnimating(false);
-            AsyncStorage.getItem('jwtToken').then((value) =>
+            SecureStore.getItemAsync('jwtToken').then((value) =>
                 navigation.replace(value === null ? 'Auth' : 'Home'),
             );
         }, 4000);

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { validate } from 'email-validator';
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as SecureStore from 'expo-secure-store';
 import {Button, Icon, TextInput} from "react-native-paper";
 import {ThemeContext} from "../../context/ThemeContext";
 import {auth} from "../../constants/Server";
@@ -49,7 +49,7 @@ const LoginScreen = ({ navigation }) => {
                 email: userEmail,
                 password: userPassword
             });
-            await AsyncStorage.setItem('jwtToken', JSON.stringify(response.data));
+            SecureStore.setItem('jwtToken', JSON.stringify(response.data));
             setLoading(false)
             navigation.navigate('Home');
         } catch (error) {
